@@ -1,6 +1,40 @@
 pico-8 cartridge // http://www.pico-8.com
 version 18
 __lua__
+-- default methods
+
+
+function _init()
+	entities = {}
+	
+	player = entity:new({x=0,y=0,sprite=1})
+	
+	function player:update()
+ 	if(btn(⬅️)) self.x -= 1 
+		if(btn(➡️)) self.x += 1
+		if(btn(⬆️)) self.y -= 1
+		if(btn(⬇️)) self.y += 1
+	end
+
+	
+	entity:new({x=100,y=44,sprite=3})
+	entity:new({x=57,y=30,sprite=3})
+	entity:new({x=10,y=90,sprite=3})
+	entity:new({x=50,y=81,sprite=3})
+end
+
+function _update60()
+ foreach(entities,function(e)e:update()end)
+end
+
+function _draw()
+ cls() 
+	map(0,0,0,0,128,128)
+ foreach(entities,function(e)e:draw()end)
+end
+-->8
+-- entity class
+
 entity={
  x=8,
  y=0,
@@ -20,51 +54,6 @@ function entity:draw()
 end
 
 function entity:update() end
-entities = {}
-
-player = entity:new({x=0,y=0,sprite=1})
-
-function player:update()
- if(btn(⬅️)) self.x -= 1 
-	if(btn(➡️)) self.x += 1
-	if(btn(⬆️)) self.y -= 1
-	if(btn(⬇️)) self.y += 1
- if(btn(❎)) offset = 1
-
-end
-
-//add(entities, entity:new({x=10,y=20}))
-//entity:new({x=10,y=100})
-offset = 2
-function screen_shake()
-  local fade = .7
-  local offset_x=16-rnd(32)
-  local offset_y=16-rnd(32)
-  offset_x*=offset
-  offset_y*=offset
-  
-  camera(offset_x,offset_y)
-  offset*=fade
-  if offset<0.05 then
-    offset=0
-  end
-end
-entity:new({x=50,y=90,sprite=3})
-entity:new({x=57,y=90,sprite=3})
-entity:new({x=43,y=90,sprite=3})
-entity:new({x=50,y=81,sprite=3})
-
-function _update60()
- foreach(entities,function(e)e:update()end)
-end
-
-function _draw()
- cls() 
-	screen_shake()
- map(0,0,0,0,128,128)
- foreach(entities,function(e)e:draw()end)
- line(player.x,player.y, entities[3].x+3, entities[3].y+2, 8)
-end
 __gfx__
 000000000076dd009999999900076000000000000000000000000000666666667777777777777777777777770000000000000000000000000000000000000000
 0000000007666dd09999999900766d00000000000000000000000000666666667777777777777777777777770000000000000000000000000000000000000000
