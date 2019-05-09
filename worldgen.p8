@@ -39,7 +39,11 @@ function _draw()
   --line(i+4-off,0,i+132-off,512,13)
  //end
  map(0,0,0,0,128,64,1)
- circ(bx*8+4,by*8+4,20,8)
+
+
+// circ(bx*8+4,by*8+4,20,8)
+
+
  //line(bx*8+4,by*8+4,cx+64,cy+64,8)
  print(flr(cx/8),1+cx,1+cy,8)
  print(flr(cy/8),1+cx,7+cy,8)
@@ -88,6 +92,7 @@ function generatemap()
    end
   end
  end
+ _draw()
  --add layers of ground
  for i=3,2,-1 do
   for x=0,mx do
