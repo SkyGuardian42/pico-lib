@@ -10,44 +10,48 @@ function generatenoise()
 end
 
 function neighbours(x,y,c)
-	nc=0
+	local nc=0
 	for j=0.125,1,0.125 do--iterate over neighbouring tiles
   local nx,ny=x+flr(cos(j)+.5),y+flr(sin(j)+.5)
-		if(pget(x,y)==c) nc+=1
+		if(pget(nx,ny)==c) nc+=1
  end
  return nc
 end
 
 function smoothnoise()
-for i=0,4 do--smoothing iterations
+--smoothing iterations
+for i=0,4 do
   for x=0,mx do
    for y=0,my do
-    local nc=neighbours(x,y,13)--neighbouring shallow tiles
-    --fiddle with these numbers to modify idland frequency
-    if nc>5 then
-     pset(x,y,13) 
-    elseif nc<3 then
+    local t=neighbours(x,y,13)
+    if t>5 then
+     pset(x,y,13)
+    elseif t<3 then
      pset(x,y,12)
     end
    end
   end
+  
+ flip()
  end
+end
+
+function genwood()
+	for i=0,mx do
+		for j=0,my do
+			t=neighbours(j,k,13)
+		end
+	end
 end
 
 function _init()
 	mx,my=127,127
 	generatenoise()
-	color(7)
-	--print(pget(10,10),10,10)
-	smoothnoise()
-
-	flip()
---	smooth noise()
-	--flip()
 end
 
 function _draw()
 	if(btnp(❎)) smoothnoise()
+
 end
 __gfx__
 00000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000
